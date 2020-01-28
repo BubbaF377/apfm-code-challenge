@@ -4,4 +4,5 @@ export const clientBaseUrl = FRONTEND_URL;
 
 export const clientRoutes = {
   home: () => '/',
+  support: () => '/support',
 };

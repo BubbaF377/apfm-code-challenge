@@ -1,4 +1,4 @@
-import { Home } from '@material-ui/icons';
+import { ContactSupport, Home, NoEncryption } from '@material-ui/icons';
 import { createStyles, makeStyles } from '@material-ui/styles';
 import { Theme, BottomNavigation, BottomNavigationAction } from '@material-ui/core';
 import React from 'react';
@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme: Theme) => {
 export interface FooterProps {}
 
 export const Footer: React.FC<FooterProps> = (props) => {
-  const classes = useStyles();
+  const classes = useStyles({});
   return (
     <footer className={classes.footer}>
       <BottomNavigation classes={{ root: classes.bottomNavigationRoot }} showLabels>
@@ -31,6 +31,12 @@ export const Footer: React.FC<FooterProps> = (props) => {
           icon={<Home />}
           component={Link}
           to={clientRoutes.home()}
+        />
+        <BottomNavigationAction
+          label="Support"
+          icon={<ContactSupport />}
+          component={Link}
+          to={clientRoutes.support()}
         />
       </BottomNavigation>
     </footer>
