@@ -2,7 +2,7 @@ import { createStyles, makeStyles } from '@material-ui/styles';
 import { Button, Input, InputLabel, MenuItem, Select, Theme, Typography } from '@material-ui/core';
 import React from 'react';
 
-import { Category } from '../helpers/apiUtils'
+import { ICategory } from '../helpers/apiUtils'
 
 const useStyles = makeStyles((theme: Theme) => {
   return createStyles({
@@ -32,11 +32,11 @@ const useStyles = makeStyles((theme: Theme) => {
 });
 
 export interface SetupProps {
-  categories: Category[],
-  currentCategory: Category,
-  defaultCategory: Category,
+  categories: ICategory[],
+  currentCategory: ICategory,
+  defaultCategory: ICategory,
   numQuestions: number,
-  playGame: () => void,
+  // playGame: () => void,
   setupIsVisible: boolean,
   updateCategory: (event: React.ChangeEvent<{ name?: string | undefined; value: unknown; }> | null) => void,
   updateNumQuestions: (newNum: number | null) => void,
@@ -47,7 +47,7 @@ export const Setup: React.FC<SetupProps> = ({
   currentCategory,
   defaultCategory,
   numQuestions,
-  playGame,
+  // playGame,
   updateCategory,
   updateNumQuestions,
 }) => {
@@ -81,9 +81,9 @@ export const Setup: React.FC<SetupProps> = ({
           onChange={(e) => updateNumQuestions(parseInt(e.target.value))}
         />
       </div>
-      <Button className={classes.btn} variant="contained" color="primary" onClick={(e) => {e.preventDefault(); return playGame()}}>
+      {/* <Button className={classes.btn} variant="contained" color="primary" onClick={(e) => {e.preventDefault(); return playGame()}}>
         Play Game
-      </Button>
+      </Button> */}
     </form>
   );
 };
