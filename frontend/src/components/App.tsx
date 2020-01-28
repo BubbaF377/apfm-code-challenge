@@ -9,7 +9,7 @@ import { Header } from 'components/layout/Header';
 import { Home } from 'components/Home';
 import { Support } from 'components/Support';
 
-import { Category, Question, fetchCategories, fetchQuestions } from '../helpers/apiUtils';
+import { Category, Question, useCategories, useQuestions } from '../helpers/apiUtils';
 
 const useStyles = makeStyles((theme: Theme) => {
   return createStyles({
@@ -39,8 +39,8 @@ export const App: React.FC<AppProps> = (props) => {
   const [gameIsVisible, setGameIsVisible] = useState<boolean>(initialState.gameIsVisible);
   const [numQuestions, setNumQuestions] = useState<number>(initialState.numQuestions);
 
-  const categories: Category[] = fetchCategories();
-  const questions: Question[] = fetchQuestions(categoryId, numQuestions);
+  const categories: Category[] = useCategories();
+  const questions: Question[] = useQuestions(categoryId, numQuestions);
   const currentCategory: Category = {
     id: categoryId,
     name: categoryName,
@@ -54,7 +54,7 @@ export const App: React.FC<AppProps> = (props) => {
     const newCategoryId = event && event.target ? event.target.value : '';
     
     if (newCategoryId && typeof newCategoryId == 'number' ) {
-      let category: Category | undefined = categories.find(cat => cat.id === newCategoryId);
+      const category: Category | undefined = categories.find(cat => cat.id === newCategoryId);
 
       setCategoryId(newCategoryId);
       setCategoryName(category ? category.name : '');

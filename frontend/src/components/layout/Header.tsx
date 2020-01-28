@@ -1,7 +1,6 @@
 import { createStyles, makeStyles } from '@material-ui/styles';
 import { Theme, Typography } from '@material-ui/core';
 import React from 'react';
-import { DonutLargeRounded } from '@material-ui/icons';
 
 const useStyles = makeStyles((theme: Theme) => {
   return createStyles({

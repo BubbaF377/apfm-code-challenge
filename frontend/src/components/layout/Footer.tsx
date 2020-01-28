@@ -1,4 +1,4 @@
-import { ContactSupport, Home, NoEncryption } from '@material-ui/icons';
+import { ContactSupport, Home } from '@material-ui/icons';
 import { createStyles, makeStyles } from '@material-ui/styles';
 import { Theme, BottomNavigation, BottomNavigationAction } from '@material-ui/core';
 import React from 'react';

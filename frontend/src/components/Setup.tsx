@@ -77,7 +77,7 @@ export const Setup: React.FC<SetupProps> = ({
             max: '50',
           }}
           value={numQuestions}
-          onChange={(e) => updateNumQuestions(parseInt(e.target.value))}
+          onChange={(e) => updateNumQuestions(parseInt(e.target.value, 10))}
         />
       </div>
       <Button className={classes.btn} variant="contained" color="primary" onClick={(e) => {e.preventDefault(); return playGame()}}>

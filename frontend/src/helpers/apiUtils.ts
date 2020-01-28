@@ -36,7 +36,7 @@ const getURL = (type: string): string => {
   return urls[type];
 }
 
-export const fetchCategories = (): Category[] => {
+export const useCategories = (): Category[] => {
   const [data, setData] = useState<Category[]>([]);
 
   async function getData(stateData: Category[]) {
@@ -61,7 +61,7 @@ export const fetchCategories = (): Category[] => {
   return data;
 }
 
-export const fetchQuestions = (categoryId: number, numQuestions: number): Question[] => {
+export const useQuestions = (categoryId: number, numQuestions: number): Question[] => {
   const [data, setData] = useState<Question[]>([]);
   const [questionsURL, setQuestionsURL] = useState<string>('');
   
