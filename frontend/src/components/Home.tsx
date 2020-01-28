@@ -1,9 +1,10 @@
 import { createStyles, makeStyles } from '@material-ui/styles';
 import { Theme } from '@material-ui/core';
 import React from 'react';
+import { Game } from 'components/Game';
 import { Setup } from 'components/Setup';
 
-import { ICategory } from '../helpers/apiUtils'
+import { Category, Question } from '../helpers/apiUtils'
 
 const useStyles = makeStyles((theme: Theme) => {
   return createStyles({
@@ -20,10 +21,14 @@ const useStyles = makeStyles((theme: Theme) => {
 });
 
 export interface HomeProps {
-  categories: ICategory[],
-  currentCategory: ICategory,
-  defaultCategory: ICategory,
+  categories: Category[],
+  currentCategory: Category,
+  defaultCategory: Category,
+  gameIsVisible: boolean,
   numQuestions: number,
+  playGame: () => void,
+  questions: Question[],
+  resetGame: () => void,
   setupIsVisible: boolean,
   updateCategory: (event: React.ChangeEvent<{ name?: string | undefined; value: unknown; }> | null) => void,
   updateNumQuestions: (newNum: number | null) => void,
@@ -33,17 +38,26 @@ export const Home: React.FC<HomeProps> = ({
   categories,
   currentCategory,
   defaultCategory,
+  gameIsVisible,
   numQuestions,
+  playGame,
+  questions,
+  resetGame,
   setupIsVisible,
   updateCategory,
   updateNumQuestions,
 }) => {
   const classes = useStyles();
+  const gameProps = {
+    questions,
+    resetGame,
+  };
   const setupProps = {
     categories,
     currentCategory,
     defaultCategory,
     numQuestions,
+    playGame,
     setupIsVisible,
     updateCategory,
     updateNumQuestions,
@@ -54,6 +68,11 @@ export const Home: React.FC<HomeProps> = ({
       {
         setupIsVisible
           ? <Setup {...setupProps} />
+          : null
+      }
+      {
+        gameIsVisible
+          ? <Game {...gameProps} />
           : null
       }
     </div>

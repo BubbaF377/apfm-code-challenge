@@ -9,7 +9,7 @@ import { Header } from 'components/layout/Header';
 import { Home } from 'components/Home';
 import { Support } from 'components/Support';
 
-import { ICategory, IQuestion, fetchCategories, fetchQuestions } from '../helpers/apiUtils'
+import { Category, Question, fetchCategories, fetchQuestions } from '../helpers/apiUtils'
 
 const useStyles = makeStyles((theme: Theme) => {
   return createStyles({
@@ -24,30 +24,39 @@ const useStyles = makeStyles((theme: Theme) => {
 export interface AppProps {}
 
 export const App: React.FC<AppProps> = (props) => {
-  const [categoryId, setCategoryId] = useState<number>(-1);
-  const [categoryName, setCategoryName] = useState<string>('Any Category');
-  const [numQuestions, setNumQuestions] = useState<number>(10);
-  const [setupIsVisible, setSetupIsVisible] = useState<boolean>(true);
+  const initialState = {
+    categoryId: -1,
+    categoryName: 'Any Category',
+    gameIsVisible: false,
+    numQuestions: 10,
+    setupIsVisible: true,
+  }
+
+  const [categoryId, setCategoryId] = useState<number>(initialState.categoryId);
+  const [categoryName, setCategoryName] = useState<string>(initialState.categoryName);
+  const [gameIsVisible, setGameIsVisible] = useState<boolean>(initialState.gameIsVisible);
+  const [numQuestions, setNumQuestions] = useState<number>(initialState.numQuestions);
+  const [setupIsVisible, setSetupIsVisible] = useState<boolean>(initialState.setupIsVisible);
 
   const classes = useStyles({});
   const history = useHistory();
 
-  const categories: ICategory[] = fetchCategories();
-  const questions: IQuestion[] = fetchQuestions(categoryId, numQuestions);
-  const currentCategory: ICategory = {
+  const categories: Category[] = fetchCategories();
+  const questions: Question[] = fetchQuestions(categoryId, numQuestions);
+  const currentCategory: Category = {
     id: categoryId,
     name: categoryName,
   };
-  const defaultCategory: ICategory = {
-    id: -1,
-    name: 'Any Category',
+  const defaultCategory: Category = {
+    id: initialState.categoryId,
+    name: initialState.categoryName,
   };
 
   const updateCategory = (event: React.ChangeEvent<{ name?: string | undefined; value: unknown; }> | null) => {
     const newCategoryId = event && event.target ? event.target.value : '';
     
     if (newCategoryId && typeof newCategoryId =='number' ) {
-      let category: ICategory | undefined = categories.find(cat => cat.id === newCategoryId);
+      let category: Category | undefined = categories.find(cat => cat.id === newCategoryId);
 
       setCategoryId(newCategoryId);
       setCategoryName(category ? category.name : '');
@@ -57,14 +66,31 @@ export const App: React.FC<AppProps> = (props) => {
     if (newNum) {
       setNumQuestions(newNum);
     }
+  }
+  const playGame = () => {
+    setSetupIsVisible(false);
+    setGameIsVisible(true);
   };
+
+  const resetGame = () => {
+    const {categoryId, categoryName, gameIsVisible, numQuestions, setupIsVisible} = initialState;
+
+    setCategoryId(categoryId);
+    setCategoryName(categoryName);
+    setGameIsVisible(gameIsVisible);
+    setNumQuestions(numQuestions);
+    setSetupIsVisible(setupIsVisible);
+  }
 
   const homeProps = {
     categories,
     currentCategory,
     defaultCategory,
+    gameIsVisible,
     numQuestions,
+    playGame,
     questions,
+    resetGame,
     setupIsVisible,
     updateCategory,
     updateNumQuestions,
