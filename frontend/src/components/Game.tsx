@@ -2,7 +2,6 @@ import { createStyles, makeStyles } from '@material-ui/styles';
 import { Button, Theme } from '@material-ui/core';
 import React, { useState } from 'react';
 
-
 import { GameQuestion } from 'components/GameQuestion';
 
 import { Question } from '../helpers/apiUtils';
@@ -41,13 +40,13 @@ export const Game: React.FC<GameProps> = ({
   questions,
   resetGame,
 }) => {
+  const classes = useStyles();
+  
   const [correctAnswer, setCorrectAnswer]  = useState<string>('');
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0);
   const [gameLost, setGameLost] = useState<boolean>(false);
   const [gameOver, setGameOver] = useState<boolean>(false);
 
-  const classes = useStyles();
-  
   const getNextQuestion = (answerIsCorrect: boolean, correctAnswer: string) => {
       if (!answerIsCorrect) {
         setGameLost(true);
@@ -82,7 +81,7 @@ export const Game: React.FC<GameProps> = ({
       numQuestions: questions.length,
       question: htmlDecode(question),
       type,
-    }
+    };
 
     return <GameQuestion {...questionProps} />;
   };
@@ -107,7 +106,13 @@ export const Game: React.FC<GameProps> = ({
             : getQuestionElements()
           )
       }
-<Button className={classes.btnQuit} variant="contained" onClick={resetGame}>{gameLost || gameOver ? "Try again" : "Surrender"}</Button>
+      <Button
+        className={classes.btnQuit}
+        variant="contained"
+        onClick={resetGame}
+      >
+        {gameLost || gameOver ? "Try again" : "Surrender"}
+      </Button>
     </div>
   );
 };
