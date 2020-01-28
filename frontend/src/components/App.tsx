@@ -9,7 +9,7 @@ import { Header } from 'components/layout/Header';
 import { Home } from 'components/Home';
 import { Support } from 'components/Support';
 
-import { Category, Question, fetchCategories, fetchQuestions } from '../helpers/apiUtils'
+import { Category, Question, fetchCategories, fetchQuestions } from '../helpers/apiUtils';
 
 const useStyles = makeStyles((theme: Theme) => {
   return createStyles({
@@ -30,7 +30,7 @@ export const App: React.FC<AppProps> = (props) => {
     gameIsVisible: false,
     numQuestions: 10,
     setupIsVisible: true,
-  }
+  };
 
   const [categoryId, setCategoryId] = useState<number>(initialState.categoryId);
   const [categoryName, setCategoryName] = useState<string>(initialState.categoryName);
@@ -55,18 +55,20 @@ export const App: React.FC<AppProps> = (props) => {
   const updateCategory = (event: React.ChangeEvent<{ name?: string | undefined; value: unknown; }> | null) => {
     const newCategoryId = event && event.target ? event.target.value : '';
     
-    if (newCategoryId && typeof newCategoryId =='number' ) {
+    if (newCategoryId && typeof newCategoryId == 'number' ) {
       let category: Category | undefined = categories.find(cat => cat.id === newCategoryId);
 
       setCategoryId(newCategoryId);
       setCategoryName(category ? category.name : '');
     }
-  }
+  };
+
   const updateNumQuestions = (newNum: number | null) => {
     if (newNum) {
       setNumQuestions(newNum);
     }
-  }
+  };
+
   const playGame = () => {
     setSetupIsVisible(false);
     setGameIsVisible(true);
@@ -80,7 +82,7 @@ export const App: React.FC<AppProps> = (props) => {
     setGameIsVisible(gameIsVisible);
     setNumQuestions(numQuestions);
     setSetupIsVisible(setupIsVisible);
-  }
+  };
 
   const homeProps = {
     categories,
@@ -94,7 +96,7 @@ export const App: React.FC<AppProps> = (props) => {
     setupIsVisible,
     updateCategory,
     updateNumQuestions,
-  }
+  };
 
   if ((window as any).Cypress) {
     (window as any).reactRouterHistory = history;
