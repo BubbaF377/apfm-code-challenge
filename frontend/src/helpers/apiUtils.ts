@@ -41,11 +41,16 @@ export const fetchCategories = (): Category[] => {
 
   async function getData(stateData: Category[]) {
     if  (stateData.length < 1) {
-      const response = await fetch(getURL('categories'));
-      const data: CategoriesData = await response.json();
-      const categories: Category[] = data.trivia_categories;
-      
-      setData(categories);
+      try {
+        const response = await fetch(getURL('categories'));
+        const data: CategoriesData = await response.json();
+        const categories: Category[] = data.trivia_categories;
+        
+        setData(categories);
+      }
+      catch(e) {
+        console.log('There was a problem when attempting to fetch the Categories: ', e);
+      }
     }
   };
   
@@ -65,11 +70,17 @@ export const fetchQuestions = (categoryId: number, numQuestions: number): Questi
     
     if (stateQuestionsURL !== url) {
       setQuestionsURL(url);
-      const response = await fetch(url);
-      const data: QuestionsData = await response.json();
-      const questions: Question[] = data.results;
-      
-      setData(questions);
+
+      try {
+        const response = await fetch(url);
+        const data: QuestionsData = await response.json();
+        const questions: Question[] = data.results;
+
+        setData(questions);
+      }
+      catch(e) {
+        console.log('There was a problem when attempting to fetch the Questions: ', e);
+      }
     }
   }
   
