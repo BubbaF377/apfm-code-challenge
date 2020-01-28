@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 
-export interface ICategory {
+export interface Category {
   id: number,
   name: string,
 }
 
-export interface IQuestion {
+export interface Question {
   category: string,
   correct_answer: string,
   difficulty: string,
@@ -14,21 +14,21 @@ export interface IQuestion {
   type: string,
 }
 
-interface ICategoriesData {
-  trivia_categories: ICategory[],
+interface CategoriesData {
+  trivia_categories: Category[],
 }
 
-interface IQuestionsData {
+interface QuestionsData {
   response_code: number,
-  results: IQuestion[],
+  results: Question[],
 }
 
-interface IURLS {
+interface URLS {
   [key: string]: string,
 }
 
 const getURL = (type: string): string => {
-  const urls: IURLS = {
+  const urls: URLS = {
     api: 'https://opentdb.com/api.php',
     categories: 'https://opentdb.com/api_category.php',
   }
@@ -36,14 +36,14 @@ const getURL = (type: string): string => {
   return urls[type];
 }
 
-export const fetchCategories = (): ICategory[] => {
-  const [data, setData] = useState<ICategory[]>([]);
+export const fetchCategories = (): Category[] => {
+  const [data, setData] = useState<Category[]>([]);
 
-  async function getData(stateData: ICategory[]) {
+  async function getData(stateData: Category[]) {
     if  (stateData.length < 1) {
       const response = await fetch(getURL('categories'));
-      const data: ICategoriesData = await response.json();
-      const categories: ICategory[] = data.trivia_categories;
+      const data: CategoriesData = await response.json();
+      const categories: Category[] = data.trivia_categories;
       
       setData(categories);
     }
@@ -56,8 +56,8 @@ export const fetchCategories = (): ICategory[] => {
   return data;
 }
 
-export const fetchQuestions = (categoryId: number, numQuestions: number): IQuestion[] => {
-  const [data, setData] = useState<IQuestion[]>([]);
+export const fetchQuestions = (categoryId: number, numQuestions: number): Question[] => {
+  const [data, setData] = useState<Question[]>([]);
   const [questionsURL, setQuestionsURL] = useState<string>('');
   
   async function getData(stateQuestionsURL: string) {
@@ -66,8 +66,8 @@ export const fetchQuestions = (categoryId: number, numQuestions: number): IQuest
     if (stateQuestionsURL !== url) {
       setQuestionsURL(url);
       const response = await fetch(url);
-      const data: IQuestionsData = await response.json();
-      const questions: IQuestion[] = data.results;
+      const data: QuestionsData = await response.json();
+      const questions: Question[] = data.results;
       
       setData(questions);
     }
