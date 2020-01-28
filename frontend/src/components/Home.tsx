@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme: Theme) => {
       display: 'flex',
       flexDirection: 'column',
       flexGrow: 1,
-      marginTop: '2rem',
+      margin: '2rem 0',
       padding: `0 ${theme.spacing(4)}px`,
     }
   });
