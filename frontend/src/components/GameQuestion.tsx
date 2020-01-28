@@ -8,9 +8,6 @@ const useStyles = makeStyles((theme: Theme) => {
       alignSelf: 'center',
       margin: '2rem auto',
     },
-    category: {
-
-    },
     info: {
       fontSize: 'smaller',
       textAlign: 'center',
@@ -49,8 +46,9 @@ export const GameQuestion: React.FC<GameQuestionProps> = ({
   question,
   type,
 }) => {
-  const [selectedAnswer, setSelectedAnswer] = useState<string>('');
   const classes = useStyles();
+
+  const [selectedAnswer, setSelectedAnswer] = useState<string>('');
 
   const handleChange = (val: string) => {
       setSelectedAnswer(val);
@@ -58,14 +56,14 @@ export const GameQuestion: React.FC<GameQuestionProps> = ({
 
   const answerIsCorrect = (selected: string, correct: string) => {
     return selected.toUpperCase() === correct.toUpperCase();
-  }
+  };
 
   const submitAnswer = () => {
     const isCorrect = answerIsCorrect(selectedAnswer, correctAnswer);
 
     setSelectedAnswer('');
     getNextQuestion(isCorrect, correctAnswer);
-  }
+  };
 
   const getQuestionLayout = () => {
     if (type === "multiple") {
@@ -80,11 +78,11 @@ export const GameQuestion: React.FC<GameQuestionProps> = ({
 
     return (
       <RadioGroup aria-label="true-or-false" name="boolean" onChange={(e) => handleChange(e.target.value)} value={selectedAnswer}>
-        <FormControlLabel  key='fcl-true' value="True" control={<Radio />} label="True" />
-        <FormControlLabel  key='fcl-false' value="False" control={<Radio />} label="False" />
+        <FormControlLabel key='fcl-true' value="True" control={<Radio />} label="True" />
+        <FormControlLabel key='fcl-false' value="False" control={<Radio />} label="False" />
       </RadioGroup>
     );
-  }
+  };
   
   return (
     <FormControl className={classes.question} component="fieldset">

@@ -106,11 +106,7 @@ export const Game: React.FC<GameProps> = ({
             : getQuestionElements()
           )
       }
-      <Button
-        className={classes.btnQuit}
-        variant="contained"
-        onClick={resetGame}
-      >
+      <Button className={classes.btnQuit} variant="contained" onClick={resetGame}>
         {gameLost || gameOver ? "Try again" : "Surrender"}
       </Button>
     </div>
