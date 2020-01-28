@@ -1,6 +1,7 @@
 import { createStyles, makeStyles } from '@material-ui/styles';
 import { Theme } from '@material-ui/core';
 import React from 'react';
+
 import { Game } from 'components/Game';
 import { Setup } from 'components/Setup';
 
@@ -29,7 +30,6 @@ export interface HomeProps {
   playGame: () => void,
   questions: Question[],
   resetGame: () => void,
-  setupIsVisible: boolean,
   updateCategory: (event: React.ChangeEvent<{ name?: string | undefined; value: unknown; }> | null) => void,
   updateNumQuestions: (newNum: number | null) => void,
 }
@@ -43,11 +43,11 @@ export const Home: React.FC<HomeProps> = ({
   playGame,
   questions,
   resetGame,
-  setupIsVisible,
   updateCategory,
   updateNumQuestions,
 }) => {
   const classes = useStyles();
+
   const gameProps = {
     questions,
     resetGame,
@@ -58,7 +58,6 @@ export const Home: React.FC<HomeProps> = ({
     defaultCategory,
     numQuestions,
     playGame,
-    setupIsVisible,
     updateCategory,
     updateNumQuestions,
   };
@@ -66,14 +65,9 @@ export const Home: React.FC<HomeProps> = ({
   return (
     <div className={classes.home}>
       {
-        setupIsVisible
-          ? <Setup {...setupProps} />
-          : null
-      }
-      {
         gameIsVisible
           ? <Game {...gameProps} />
-          : null
+          : <Setup {...setupProps} />
       }
     </div>
   );

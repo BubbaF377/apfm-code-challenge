@@ -37,7 +37,6 @@ export interface SetupProps {
   defaultCategory: Category,
   numQuestions: number,
   playGame: () => void,
-  setupIsVisible: boolean,
   updateCategory: (event: React.ChangeEvent<{ name?: string | undefined; value: unknown; }> | null) => void,
   updateNumQuestions: (newNum: number | null) => void,
 }

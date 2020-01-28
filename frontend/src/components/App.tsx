@@ -24,22 +24,20 @@ const useStyles = makeStyles((theme: Theme) => {
 export interface AppProps {}
 
 export const App: React.FC<AppProps> = (props) => {
+  const classes = useStyles({});
+  const history = useHistory();
+
   const initialState = {
     categoryId: -1,
     categoryName: 'Any Category',
     gameIsVisible: false,
     numQuestions: 10,
-    setupIsVisible: true,
   };
 
   const [categoryId, setCategoryId] = useState<number>(initialState.categoryId);
   const [categoryName, setCategoryName] = useState<string>(initialState.categoryName);
   const [gameIsVisible, setGameIsVisible] = useState<boolean>(initialState.gameIsVisible);
   const [numQuestions, setNumQuestions] = useState<number>(initialState.numQuestions);
-  const [setupIsVisible, setSetupIsVisible] = useState<boolean>(initialState.setupIsVisible);
-
-  const classes = useStyles({});
-  const history = useHistory();
 
   const categories: Category[] = fetchCategories();
   const questions: Question[] = fetchQuestions(categoryId, numQuestions);
@@ -70,18 +68,16 @@ export const App: React.FC<AppProps> = (props) => {
   };
 
   const playGame = () => {
-    setSetupIsVisible(false);
     setGameIsVisible(true);
   };
 
   const resetGame = () => {
-    const {categoryId, categoryName, gameIsVisible, numQuestions, setupIsVisible} = initialState;
+    const {categoryId, categoryName, gameIsVisible, numQuestions} = initialState;
 
     setCategoryId(categoryId);
     setCategoryName(categoryName);
     setGameIsVisible(gameIsVisible);
     setNumQuestions(numQuestions);
-    setSetupIsVisible(setupIsVisible);
   };
 
   const homeProps = {
@@ -93,7 +89,6 @@ export const App: React.FC<AppProps> = (props) => {
     playGame,
     questions,
     resetGame,
-    setupIsVisible,
     updateCategory,
     updateNumQuestions,
   };
