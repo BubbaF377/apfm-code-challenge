@@ -88,7 +88,7 @@ export const GameQuestion: React.FC<GameQuestionProps> = ({
     <FormControl className={classes.question} component="fieldset">
       <FormLabel className={classes.questionText} component="legend">{question}</FormLabel>
       {getQuestionLayout()}
-      <Button className={classes.btn} variant="contained" color="primary" onClick={submitAnswer}>Submit Answer</Button>
+      <Button className={classes.btn} variant="contained" color="primary" onClick={submitAnswer} disabled={!selectedAnswer}>Submit Answer</Button>
       <span className={classes.info}>[ Question number {currentQuestionIndex + 1} of {numQuestions} is from the realm of <em>{category}</em> ]</span> 
     </FormControl>
   );
